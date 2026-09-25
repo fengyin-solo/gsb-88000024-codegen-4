@@ -1,5 +1,6 @@
 export const restorationNavigation = [
   { label: '修复总览', to: '/' },
+  { label: '环境概览', to: '/environment' },
   { label: '批次档案', to: '/batches' },
   { label: '任务清单', to: '/tasks' },
 ]
@@ -56,6 +57,37 @@ export const restorationEnvironment = [
     value: '4 页',
     note: '夜间统一复核霉斑残留',
   },
+]
+
+// 固定环境指标：带控制线的标准监测项，用于异常汇总判定
+export const environmentMetrics = [
+  { key: 'humidity', label: '相对湿度', unit: '%', controlMin: 50, controlMax: 55 },
+  { key: 'temperature', label: '库房温度', unit: '℃', controlMin: 18, controlMax: 22 },
+  { key: 'light', label: '光照强度', unit: 'lx', controlMin: 0, controlMax: 50 },
+  { key: 'voc', label: '挥发物浓度', unit: 'µg/m³', controlMin: 0, controlMax: 300 },
+]
+
+export const environmentZones = [
+  { key: 'studio-a', name: '修复一区' },
+  { key: 'studio-b', name: '修复二区' },
+  { key: 'storage', name: '暂存库房' },
+]
+
+// 各修复区域当前读数：value 为 null 表示读数缺失，pending 表示请求未返回，
+// previousValue 与 value 不一致表示同一指标存在新旧两值，均按待确认处理
+export const environmentZoneReadings = [
+  { zone: 'studio-a', metric: 'humidity', value: 52, capturedAt: '09:10' },
+  { zone: 'studio-a', metric: 'temperature', value: 21, capturedAt: '09:10' },
+  { zone: 'studio-a', metric: 'light', value: 46, capturedAt: '09:10' },
+  { zone: 'studio-a', metric: 'voc', value: 212, capturedAt: '09:10' },
+  { zone: 'studio-b', metric: 'humidity', value: 58, capturedAt: '09:12' },
+  { zone: 'studio-b', metric: 'temperature', value: 23, capturedAt: '09:12' },
+  { zone: 'studio-b', metric: 'light', value: null, capturedAt: '' },
+  { zone: 'studio-b', metric: 'voc', value: 268, previousValue: 305, capturedAt: '09:12' },
+  { zone: 'storage', metric: 'humidity', value: 51, capturedAt: '09:05' },
+  { zone: 'storage', metric: 'temperature', pending: true },
+  { zone: 'storage', metric: 'light', value: 38, capturedAt: '09:05' },
+  { zone: 'storage', metric: 'voc', value: 340, capturedAt: '09:05' },
 ]
 
 export const restorationSteps = [

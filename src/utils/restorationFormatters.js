@@ -16,3 +16,22 @@ export function riskMeta(risk) {
 
   return map[risk] ?? map.low
 }
+
+export function environmentStatusMeta(status) {
+  const map = {
+    normal: {
+      label: '正常',
+      tone: 'normal',
+    },
+    exceeded: {
+      label: '超限',
+      tone: 'exceeded',
+    },
+    pending: {
+      label: '待确认',
+      tone: 'pending',
+    },
+  }
+
+  return map[status] ?? map.pending
+}

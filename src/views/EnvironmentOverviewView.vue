@@ -1,8 +1,6 @@
 <script setup>
 import PanelSection from '../components/common/PanelSection.vue'
-import BatchGrid from '../components/restoration/BatchGrid.vue'
 import EnvironmentAnomalySummary from '../components/restoration/EnvironmentAnomalySummary.vue'
-import { restorationBatches } from '../data/restorationData'
 import { useEnvironmentAnomalies } from '../composables/useEnvironmentAnomalies'
 
 const { summaryRows, summaryCounts } = useEnvironmentAnomalies()
@@ -10,11 +8,7 @@ const { summaryRows, summaryCounts } = useEnvironmentAnomalies()
 
 <template>
   <div class="view-stack">
-    <PanelSection title="批次档案" badge="修复对象">
-      <BatchGrid :items="restorationBatches" />
-    </PanelSection>
-
-    <PanelSection title="环境参数异常汇总" badge="与环境概览一致">
+    <PanelSection title="环境参数异常汇总" badge="指标 × 区域">
       <EnvironmentAnomalySummary :rows="summaryRows" :counts="summaryCounts" />
     </PanelSection>
   </div>
@@ -23,6 +17,5 @@ const { summaryRows, summaryCounts } = useEnvironmentAnomalies()
 <style scoped>
 .view-stack {
   display: grid;
-  gap: 24px;
 }
 </style>
