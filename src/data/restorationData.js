@@ -1,6 +1,7 @@
 export const restorationNavigation = [
   { label: '修复总览', to: '/' },
   { label: '批次档案', to: '/batches' },
+  { label: '环境监测', to: '/environment' },
   { label: '任务清单', to: '/tasks' },
 ]
 
@@ -56,6 +57,70 @@ export const restorationEnvironment = [
     value: '4 页',
     note: '夜间统一复核霉斑残留',
   },
+]
+
+// 固定环境指标：全工作室统一监测的指标定义与控制线。
+// min / max 以数值形式给出，配合 unit 判定各区域读数是否超出控制线。
+export const restorationMetricSpecs = [
+  {
+    key: 'humidity',
+    label: '相对湿度',
+    unit: '%',
+    min: 50,
+    max: 55,
+  },
+  {
+    key: 'temperature',
+    label: '温度',
+    unit: '℃',
+    min: 18,
+    max: 22,
+  },
+  {
+    key: 'illuminance',
+    label: '照度',
+    unit: 'lux',
+    min: 150,
+    max: 300,
+  },
+]
+
+// 修复区域：各区域独立上报环境读数，与固定指标合并展示。
+export const restorationZones = [
+  { key: 'patch', label: '补纸区' },
+  { key: 'damping', label: '控湿区' },
+  { key: 'storage', label: '暂存区' },
+]
+
+// 各修复区域的当前读数（模拟采集接口返回的原始数据）：
+// - value 为正常上报的数值；
+// - previousValue 存在表示同一指标出现新旧两值，需人工确认；
+// - readingState: 'missing' 读数缺失，'failed' 请求未返回。
+export const restorationZoneReadings = [
+  { zoneKey: 'patch', metricKey: 'humidity', value: 52 },
+  { zoneKey: 'patch', metricKey: 'temperature', value: 23.4 },
+  {
+    zoneKey: 'patch',
+    metricKey: 'illuminance',
+    value: 260,
+    previousValue: 340,
+  },
+  { zoneKey: 'damping', metricKey: 'humidity', value: 58 },
+  {
+    zoneKey: 'damping',
+    metricKey: 'temperature',
+    value: 20.5,
+    readingState: 'failed',
+  },
+  { zoneKey: 'damping', metricKey: 'illuminance', value: 210 },
+  {
+    zoneKey: 'storage',
+    metricKey: 'humidity',
+    value: 51,
+    readingState: 'missing',
+  },
+  { zoneKey: 'storage', metricKey: 'temperature', value: 19.8 },
+  { zoneKey: 'storage', metricKey: 'illuminance', value: 120 },
 ]
 
 export const restorationSteps = [

@@ -3,6 +3,7 @@ import PanelSection from '../components/common/PanelSection.vue'
 import StatCard from '../components/common/StatCard.vue'
 import BatchGrid from '../components/restoration/BatchGrid.vue'
 import EnvironmentCards from '../components/restoration/EnvironmentCards.vue'
+import EnvironmentSummaryPanel from '../components/restoration/EnvironmentSummaryPanel.vue'
 import HeroBanner from '../components/restoration/HeroBanner.vue'
 import {
   restorationBatches,
@@ -11,9 +12,12 @@ import {
   restorationSteps,
 } from '../data/restorationData'
 import { useRestorationOverview } from '../composables/useRestorationOverview'
+import { useEnvironmentSummary } from '../composables/useEnvironmentSummary'
 
 const { batchCount, environmentCount, highRiskCount, ownerCount } =
   useRestorationOverview()
+
+const { overCount, pendingCount } = useEnvironmentSummary()
 
 const statCards = [
   { label: '在册批次', value: batchCount.value },
@@ -48,8 +52,15 @@ const statCards = [
       </PanelSection>
     </section>
 
-    <PanelSection title="环境参数" badge="修复室 2">
+    <PanelSection
+      title="环境参数"
+      :badge="`修复室 2 · 超线 ${overCount} · 待确认 ${pendingCount}`"
+    >
       <EnvironmentCards :items="restorationEnvironment" />
+    </PanelSection>
+
+    <PanelSection title="环境参数异常汇总" badge="固定指标 + 区域读数">
+      <EnvironmentSummaryPanel />
     </PanelSection>
   </div>
 </template>
